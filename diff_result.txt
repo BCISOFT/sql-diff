@@ -1,0 +1,32 @@
+Tables présentes dans le premier fichier mais absentes dans le second:
+  - utilisateurs_archive
+
+Tables présentes dans le second fichier mais absentes dans le premier:
+  - categories
+  - utilisateurs_nouveaux
+
+Différences pour la table `commandes`:
+  Colonnes ajoutées:
+    + statut enum('en_attente','payee','expediee','livree','annulee')
+
+Différences pour la table `produits`:
+  Colonnes ajoutées:
+    + categorie_id int
+  Contraintes ajoutées:
+    + FOREIGN KEY fk_produits_categories (categorie_id) REFERENCES categories (id)
+    + INDEX fk_produits_categories (categorie_id)
+
+Différences pour la table `utilisateurs`:
+  Différence de collation: utf8mb4_general_ci -> utf8mb4_unicode_ci
+  Colonnes supprimées:
+    - date_naissance
+  Colonnes ajoutées:
+    + age int
+  Colonne modifiée: email
+    Type: varchar(100) -> varchar(255)
+    Nullable: NOT NULL -> NULL
+    Default: None -> NULL
+  Contraintes supprimées:
+    - UNIQUE idx_email (email)
+  Contraintes ajoutées:
+    + INDEX idx_nom (nom, prenom)
